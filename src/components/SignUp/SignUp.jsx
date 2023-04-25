@@ -1,19 +1,24 @@
 import React, { useContext, useState } from 'react';
-import './Login.css'
 import { Link } from 'react-router-dom';
 import { AuthContaxt } from '../providare/AuthProividare';
 
-const Login = () => {
+const SignUp = () => {
     const[error, setError]=useState('')
-    const {sinInUser}= useContext(AuthContaxt)
+    const{creatUser}=useContext(AuthContaxt)
 
-    const hendalLoging = (event)=>{
+    const hendalSignUp = (event)=>{
         event.preventDefault();
         const from = event.target;
         const email = from.email.value;
         const password = from.password.value;
-        setError('')
-        sinInUser(email,password)
+        const confarm = from.confarm.value;
+        console.log(email, password, 'amar sonar bangla')
+        setError('');
+        if (password !==confarm) {
+            setError('your password not be mass');
+            return;
+        }
+        creatUser(email,password)
         .then(resuit =>{
             const logUser= resuit.user;
             console.log(logUser);
@@ -23,21 +28,22 @@ const Login = () => {
             setError(error.message)
         })
     }
-
     return (
         <div className='loging-continar'>
-            <h2 className='login-title'>Login</h2>
-            <form onSubmit={hendalLoging} className='login-from'>
+            <h2 className='login-title'>Sign-up</h2>
+            <form onSubmit={hendalSignUp} className='login-from'>
                 <label htmlFor="">Email</label>
                 <input type="email" name="email"  />
                 <label htmlFor="">Password</label>
                 <input type="password" name="password"  />
-                <button className='login-btn'>Login</button>
+                <label htmlFor="">Password</label>
+                <input type="password" name="confarm"  />
+                <button className='login-btn'>sign-up</button>
             </form>
-            <p>New to Ema-john?<Link to='/sign-up'> Create New Account</Link> </p>
+            <p>Already have an account?<Link to='/Login'>Login</Link> </p>
             <p>{error}</p>
         </div>
     );
 };
 
-export default Login;
+export default SignUp;
