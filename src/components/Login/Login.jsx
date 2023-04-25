@@ -1,23 +1,28 @@
 import React, { useContext, useState } from 'react';
 import './Login.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContaxt } from '../providare/AuthProividare';
 
 const Login = () => {
     const[error, setError]=useState('')
-    const {sinInUser}= useContext(AuthContaxt)
+    const {sinInUser}= useContext(AuthContaxt);
+    const navigate = useNavigate();
+    const location= useLocation();
+    console.log(location)
+    const from = location.state?.from?.pathname || '/';
 
     const hendalLoging = (event)=>{
         event.preventDefault();
-        const from = event.target;
-        const email = from.email.value;
-        const password = from.password.value;
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
         setError('')
         sinInUser(email,password)
         .then(resuit =>{
             const logUser= resuit.user;
             console.log(logUser);
-            from.reset();
+            form.reset();
+            navigate(from)
         })
         .catch(error=>{
             setError(error.message)

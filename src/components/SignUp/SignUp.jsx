@@ -8,10 +8,10 @@ const SignUp = () => {
 
     const hendalSignUp = (event)=>{
         event.preventDefault();
-        const from = event.target;
+        const form = event.target;
         const email = from.email.value;
-        const password = from.password.value;
-        const confarm = from.confarm.value;
+        const password = form.password.value;
+        const confarm = form.confarm.value;
         console.log(email, password, 'amar sonar bangla')
         setError('');
         if (password !==confarm) {
@@ -22,7 +22,7 @@ const SignUp = () => {
         .then(resuit =>{
             const logUser= resuit.user;
             console.log(logUser);
-            from.reset();
+            form.reset();
         })
         .catch(error=>{
             setError(error.message)

@@ -12,7 +12,7 @@ const Header = () => {
     const hendalLogout =()=>{
         logOut()
         .then(resuit =>{
-            const logUser= resuit.user;
+            const logUser= resuit?.user;
             console.log(logUser);
         })
         .catch(error=>{
@@ -30,7 +30,7 @@ const Header = () => {
                 <Link to="/sign-up">Sign Up</Link>
                 {
                     user &&
-                    <span>{user.displayname} <button onClick={hendalLogout}>Sign Out</button></span>
+                    <span><span className='user-email'>{user.email}</span> <button onClick={hendalLogout}>Sign Out</button></span>
                 }
             </div>
         </nav>
