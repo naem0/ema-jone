@@ -5,10 +5,11 @@ import { AuthContaxt } from '../providare/AuthProividare';
 
 const Login = () => {
     const[error, setError]=useState('')
+    const [show, setShow]= useState(false);
     const {sinInUser}= useContext(AuthContaxt);
     const navigate = useNavigate();
     const location= useLocation();
-    console.log(location)
+    
     const from = location.state?.from?.pathname || '/';
 
     const hendalLoging = (event)=>{
@@ -36,7 +37,13 @@ const Login = () => {
                 <label htmlFor="">Email</label>
                 <input type="email" name="email"  />
                 <label htmlFor="">Password</label>
-                <input type="password" name="password"  />
+                <input type={show ? 'text' : "password"} name="password"  />
+                <p onClick={()=>setShow(!show)}>
+                    {
+                        show ? <span>Hide</span>: <span>Show</span>
+                    }
+
+                </p>
                 <button className='login-btn'>Login</button>
             </form>
             <p>New to Ema-john?<Link to='/sign-up'> Create New Account</Link> </p>
