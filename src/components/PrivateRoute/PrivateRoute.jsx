@@ -5,7 +5,6 @@ import { Navigate, useLocation } from 'react-router-dom';
 const PrivateRoute = ({children}) => {
     const { user, loding}= useContext(AuthContaxt);
     const location= useLocation();
-    console.log(location)
 
     if (loding) {
         return <p>loding......</p>
